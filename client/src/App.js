@@ -1,8 +1,9 @@
 import {useState,useEffect} from "react"
 import Plants from './components/Plants'
-
+import PlantDetails from './components/PlantDetails'
+import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 function App() {
-
+  
   const [plantsDB,setPlantsDB] = useState([]);
   const [displayPlants,setDisplayedPlants] = useState([]);
 
@@ -31,8 +32,12 @@ function App() {
       matches=[];
     setDisplayedPlants(matches);
   }
+  
 
   return (
+    <Router>
+      <Switch>
+      <Route exact path='/'>
     <div className="container">
       <h2>Search for plants</h2>
       <div className="form-group">
@@ -40,6 +45,11 @@ function App() {
         </div>
       <Plants plants={displayPlants}/>
     </div>
+    </Route>
+    <Route  path='/plants/:id' children={<PlantDetails/>}/>
+    </Switch>
+    </Router>
+
   );
 }
 

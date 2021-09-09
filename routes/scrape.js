@@ -23,7 +23,7 @@ let currentNumOfPlants = 0;
 
 
 async function fetchFromSite(){
-    const $ = await scrapeInit(PLANTS_URL);
+    const $ = await initScrapeSelector(PLANTS_URL);
     const scrapedPlantsList = $('div.view-header,div.view-content');
     let isToxic = true;
     scrapedPlantsList.each((i,scrapedElement)=>{ // even indices are titles and odd are plants list content
@@ -55,7 +55,7 @@ function isNonToxicPlant($,scrapedElement){
 }
 
 exports.fetchPlantDetails= async (url)=>{
-    const $ = await scrapeInit(`https://www.aspca.org${url}`);
+    const $ = await initScrapeSelector(`https://www.aspca.org${url}`);
     const image = $('div.pane-node-field-image').find('img').attr('data-echo');
     const additionalNames = $('div.pane-node-field-additional-common-names span.values').text();
     const scientificName = $('div.pane-node-field-scientific-name span.values').text().trim();
@@ -73,10 +73,11 @@ exports.fetchPlantDetails= async (url)=>{
     return details;
 }
 
-async function scrapeInit(url){
+//Fetches URL and returns '$' as a selector 
+async function initScrapeSelector(url){
     const response = await fetch(url);
     const body = await response.text();
-    const $ = cheerio.load(body);
+    const $ = cheerio.load(body); // selector
     return $;
 }
 
