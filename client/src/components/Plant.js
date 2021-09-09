@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaSkull, FaCheck } from 'react-icons/fa'
 
 const Plant = ({plant}) => {

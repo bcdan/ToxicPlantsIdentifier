@@ -1,4 +1,3 @@
-import React from 'react'
 import Plant from './Plant'
 const Plants = ({plants}) => {
     return (

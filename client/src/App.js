@@ -24,7 +24,7 @@ function App() {
 
   const onSearch = async(e)=>{
     let matches = plantsDB.filter(plant=>{
-      const regex = new RegExp(`^${e.target.value}`,'gi');
+      const regex = new RegExp(`^${e.target.value}|${e.target.value}$`,'gi');
       return plant.Name.match(regex);
     });
     if(e.target.value.length === 0)
