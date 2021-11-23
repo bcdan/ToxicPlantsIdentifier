@@ -1,6 +1,10 @@
 import {useState,useEffect} from "react"
-import Plants from './components/Plants'
+import SearchBox from './components/SearchBox'
 import PlantDetails from './components/PlantDetails'
+import Footer from './components/Footer'
+import Navbar from './components/Navbar/Navbar'
+import About from './components/About'
+import Contact from './components/Contact'
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 function App() {
   
@@ -36,19 +40,18 @@ function App() {
 
   return (
     <Router>
+      <Navbar/>
       <Switch>
+      <Route exact path='/about' component={About}/>
+      <Route exact path='/contact' component={Contact}/>
       <Route exact path='/'>
-    <div className="container">
-      <h2>Search for plants</h2>
-      <div className="form-group">
-            <input type="text" className="form-control" id="search" placeholder="Enter plant name" onChange={onSearch}/>
-        </div>
-      <Plants plants={displayPlants}/>
-    </div>
+      <SearchBox onSearch={onSearch} plants={displayPlants}/>
     </Route>
     <Route  path='/plants/:id' children={<PlantDetails/>}/>
     </Switch>
+    <Footer/>
     </Router>
+    
 
   );
 }

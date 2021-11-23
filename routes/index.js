@@ -20,7 +20,7 @@ router.get('/plants/:id',async (req,res)=>{
     if(DB == null)
         return res.status(500).json({message:"Server database error"});
     if(_id>=DB.length || _id<0 )
-            return res.status(500).json({message:"Couldn't find a plant with this id"});
+        return res.status(500).json({message:"Couldn't find a plant with this id"});
     const details = await fetchPlantDetails(DB[_id].Link);
     const plantDetails = {...DB[_id],...details};
     res.status(200).json(plantDetails);
