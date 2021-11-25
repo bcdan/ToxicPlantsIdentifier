@@ -1,21 +1,22 @@
-import {useParams} from 'react-router-dom'
 import {useState,useEffect} from "react"
 import Loader from "react-loader-spinner";
 
-const PlantDetails = () => {
+
+
+const PlantDetails = ({plantID}) => {
     const [plant,setPlant] = useState([]);
     const [loading,setLoading] = useState(true);
-    const {id} = useParams();
+
 
     useEffect(() => {
         const getPlantDetails = async()=>{
-            const res = await fetch(`/api/plants/${id}`);
+            const res = await fetch(`/api/plants/${plantID}`);
             const plant = await res.json();  
             setPlant(plant);
             setLoading(false);
           }
           getPlantDetails();
-    },[id]);
+    },[plantID]);
 
     const Details = ()=>{
         return (

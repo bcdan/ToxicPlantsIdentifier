@@ -1,15 +1,18 @@
-import { FaSkull, FaCheck } from 'react-icons/fa'
-import {Link} from 'react-router-dom'
-const Plant = ({plant}) => {
-    return (
+
+const Plant = ({plant,setShowModal,setPlantID}) => {
+    const openModal = () => {
+      setShowModal(prev => !prev);
+      setPlantID(plant.ID);
+    };
+  
+
+      return (
         <div className="plant">
-            <Link to={`/plants/${plant.ID}`} >
-            <h3>
+                <li onClick={openModal}>
                 {plant.Name}
-                {plant.Toxic? <FaSkull style={{color:'red'}}/> : <FaCheck style={{color:'green'}} />}
-            </h3>
-            </Link>
+                </li>
         </div>
+
     )
 }
 

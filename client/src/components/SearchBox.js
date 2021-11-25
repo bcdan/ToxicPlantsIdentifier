@@ -1,18 +1,21 @@
 import Plants from './Plants'
-const SearchBox = ({plants,onSearch}) => {
+import {FaSearch } from 'react-icons/fa'
+
+const SearchBox = ({plants,onSearch,setShowModal,setPlantID}) => {
+
     return (
-        <div className="container">
-            <div className="container-search">
-                <div className="form-group">
-                 <input type="text" className="form-control" id="search" placeholder="Search For A Plant ..." onChange={onSearch}/>
-                </div>
-                <div className="search-results">
-                    <Plants plants={plants}/>
+            <div className="wrapper">
+                <div className="search-input">
+                    <input type="text" placeholder="Search..." onChange={onSearch}/>
+                    <div className="autocomplete-box">
+                    <Plants plants={plants} setShowModal={setShowModal} setPlantID={setPlantID}/>
+                    </div>
+                    <div className="icon"><FaSearch/></div>
                 </div>
             </div>
-        </div>
 
     )
 }
 
 export default SearchBox
+
