@@ -11,13 +11,15 @@
 }
 
 .modalWrapper{
-    width: 800px;
+    width: 500px;
     height: 500px;
-    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-    background: #fff;
+  /*  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+    background-color: #f0f2f5;
     color: #000;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display:flex;
+    justify-content: center;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
     position: relative;
     z-index: 10;
     border-radius: 10px;
@@ -36,9 +38,7 @@
     line-height: 1.8;
     color: #141414;
 }
-.modalContent p{
-    margin-bottom: 1rem;
-}
+
 
 .modalContent button{
     padding: 10px 24px;
@@ -56,4 +56,9 @@
     height: 32px;
     padding: 0;
     z-index: 10;
+    transition: 0.3s ease;
+}
+
+.closeModalButton:hover{
+    transform: scale(1.15);
 }

@@ -1,4 +1,5 @@
 import Plant from './Plant'
+
 const Plants = ({plants,setShowModal,setPlantID}) => {
     return (
         <>

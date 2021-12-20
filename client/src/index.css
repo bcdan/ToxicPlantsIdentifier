@@ -14,6 +14,7 @@ body {
 }
 
 
+
 .wrapper{
   padding: 0 20px;
   max-width: 450px;
@@ -69,6 +70,7 @@ body {
 }
 
 
+
 .autocomplete-box li:hover{
   background:#46b34b;
 }
@@ -86,6 +88,8 @@ body {
 .plant:hover{
   background-color:#46b34b;
 }
+
+
 
 footer {
   margin-top: 30px;

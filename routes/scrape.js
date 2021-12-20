@@ -41,7 +41,7 @@ function getAllPlantsFromList($,scrapedPlantsList,plantsListIndex,isToxic){
     $(scrapedPlantsList[plantsListIndex]).find('a').each((j,elem)=>{
         plantsDB.push({
             ID:currentNumOfPlants++,
-            Name:$(elem).text(),
+            Name:$(elem).text().trim(),
             Link:$(elem).attr('href'),
             Toxic:isToxic
         });

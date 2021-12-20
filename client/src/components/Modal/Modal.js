@@ -42,9 +42,7 @@ const Modal = ({ showModal, setShowModal, plantID})=> {
         <div className="background" onClick={closeModal} ref={modalRef}>
             <div className="modalWrapper" >
               <div className="modalContent">
-
                 <PlantDetails plantID={plantID}/>
-                <button onClick={() => setShowModal(prev => !prev)}>Close</button>
               </div>
               <MdClose className="closeModalButton"
                 aria-label='Close modal'
