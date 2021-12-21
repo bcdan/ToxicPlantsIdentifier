@@ -2,6 +2,8 @@ import {useState,useEffect} from "react"
 import Loader from "react-loader-spinner";
 import { FaSkullCrossbones ,FaCheck} from 'react-icons/fa';
 import './plantDetails.css';
+import axios from "axios";
+
 
 
 
@@ -12,9 +14,12 @@ const PlantDetails = ({plantID}) => {
 
     useEffect(() => {
         const getPlantDetails = async()=>{
-            const res = await fetch(`/api/plants/${plantID}`);
-            const plant = await res.json();  
-            setPlant(plant);
+            setLoading(true);
+            const response = await axios
+                .get(`/api/plants/${plantID}`)
+                .catch(
+                    (err) => {console.log(err)});
+            setPlant(response.data);
             setLoading(false);
           }
           getPlantDetails();
@@ -47,7 +52,7 @@ const PlantDetails = ({plantID}) => {
             </div>
         )
     }
-    return (loading ? <Loader type="TailSpin" color="#00BFFF" height={200} width={200}/> : <Details/> 
+    return (loading ? <Loader type="TailSpin" color="#46b34b" height={200} width={200}/> : <Details/> 
 
     )
 

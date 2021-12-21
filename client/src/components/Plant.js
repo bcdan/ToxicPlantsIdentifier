@@ -1,14 +1,16 @@
+import {useDispatch} from 'react-redux'
+import {setSearchPlantID,setSearchBoxStatus} from '../features/search'
 
-const Plant = ({plant,setShowModal,setPlantID}) => {
-    const openModal = () => {
-      setShowModal(prev => !prev);
-      setPlantID(plant.ID);
-    };
-  
+const Plant = ({plant}) => {
+  const dispatch = useDispatch();
 
+  const handleClickedPlant=()=>{
+    dispatch(setSearchPlantID(plant.ID));
+   dispatch(setSearchBoxStatus(false));
+  }
       return (
         <div className="plant">
-                <li onClick={openModal}>
+                <li onClick={handleClickedPlant}>
                 {plant.Name}
                 </li>
         </div>

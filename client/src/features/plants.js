@@ -1,5 +1,4 @@
 const SET_PLANTS = 'ToxicPlantsIdentifier/plants/setPlants'
-
 const initialState = {
     plants : [],
 };
