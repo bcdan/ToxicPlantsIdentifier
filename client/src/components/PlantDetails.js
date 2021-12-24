@@ -1,10 +1,10 @@
 import {useState,useEffect} from "react"
-import Loader from "react-loader-spinner";
-import { FaSkullCrossbones ,FaCheck} from 'react-icons/fa';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import { FaSkullCrossbones ,FaShieldAlt} from 'react-icons/fa';
 import './plantDetails.css';
 import axios from "axios";
-
-
+import {motion} from 'framer-motion'
 
 
 const PlantDetails = ({plantID}) => {
@@ -30,31 +30,54 @@ const PlantDetails = ({plantID}) => {
     const Details = ()=>{
         return (
             <div className="plant-card" >
+                {loading ? <Skeleton style={{
+                                        borderTopRightRadius:'15px',
+                                        borderTopLeftRadius:'15px',
+                                        height:'100%',
+                                        paddingTop:'5px'
+                                    }}/> 
+                                    :
                 <div className="card-img" style={{
-                    background:`url(${plant.img})` ,
+                    background:`url(${plant.img})`  ,
                     backgroundSize:'cover',
                     borderTopRightRadius:'15px',
                     borderTopLeftRadius:'15px',
                     gridArea:'image'
                     }} >
+                    <div className={plant.Toxic? "ribbon red" : "ribbon"}>
+                        <span>
+                        {plant.Toxic ? 
+                            <p
+                            >
+                            Toxic 
+                            </p>
+                                 :
+                            <motion.p>
+                            Not Toxic
+                            </motion.p>}
+                        </span>
+                    </div>
                 </div>
+                }
                 <div className="card-text">
-                    <h2>{plant.Name}</h2>
-                    <p><strong>Additional Names:</strong> {plant.additionalNames}</p>
-                    <p><strong>Scientific Name:</strong> {plant.scienceName}</p>
+                    <h2>{loading? <Skeleton /> : plant.Name }</h2>
+                {loading ? <Skeleton count={6} style={{marginTop:'5px'}}/> :
+                    <>
+                    <p><strong>Additional Names:</strong> {plant.additionalNames }</p>
+                    <p><strong>Scientific Name:</strong> {plant.scienceName }</p>
                     <p><strong>Family:</strong> {plant.family}</p>
+                    </>
+                }
                 </div>
-                <div className="card-toxicity">
+                <div className={loading ? "card-toxicity" :plant.Toxic? "card-toxicity toxic" : "card-toxicity not-toxic" }>
                     <div className="toxicity">
-                    {plant.Toxic?<p>Toxic <FaSkullCrossbones/></p> :<p>Non Toxic <FaCheck/></p>}
+                        {loading ?  <Skeleton/> : plant.Toxic ? <FaSkullCrossbones/> : <FaShieldAlt/>}
                     </div>
                 </div>
             </div>
         )
     }
-    return (loading ? <Loader type="TailSpin" color="#46b34b" height={200} width={200}/> : <Details/> 
-
-    )
+    return (<Details/> )
 
 
 }
