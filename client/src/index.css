@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
+:root{
+  --main-bg-color : #393e41;
+  --hover-color : #b3bfc6;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -19,6 +24,7 @@ body {
   padding: 0 20px;
   max-width: 450px;
   margin:70px auto;
+  z-index: 2;
 }
 
 .wrapper .search-input{
@@ -50,7 +56,7 @@ body {
   right:0;
   text-align: center;
   font-size: 20px;
-  color:#253526;
+  color:var(--main-bg-color);
   cursor:pointer;
 
 }
@@ -76,8 +82,10 @@ body {
 
 
 
-.autocomplete-box li:hover{
-  background:#46b34b;
+.autocomplete-box li:hover,
+.plant:hover
+{
+  background:var(--hover-color);
 }
 
 .search-input input{
@@ -88,10 +96,6 @@ body {
 .plant a{
   text-decoration:none;
   color:black;
-}
-
-.plant:hover{
-  background-color:#46b34b;
 }
 
 
@@ -113,6 +117,6 @@ footer {
     padding: 0 20px;
     max-width: 450px;
     margin:40px auto;
-  
+    z-index: 2;
   }
 }

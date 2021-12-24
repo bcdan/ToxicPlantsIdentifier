@@ -1,13 +1,15 @@
 .plant-card {
+    position: relative;
     display: grid;
     grid-template-columns: 300px;
-    grid-template-rows: 210px 210px 60px;
+    grid-template-rows: 210px 250px 35px;
     grid-template-areas: "image" "text" "toxicity";
     border-radius: 18px;
     background: white;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.9);
     font-family: roboto;
     text-align: center;
+    z-index: 1;
   }
 
   .card-text {
@@ -28,15 +30,77 @@
     grid-area: toxicity; 
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    background:  #253526;
+    background:  white;
 
   }
+
+
   .card-toxicity .toxicity{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     color: white;
-    padding:10px;
+    padding:0.5rem;
     font-size: 20px;
+    filter:drop-shadow(1px 1px 1px #1c1c1c);
   }
+
+  .toxic{
+    background: #a22522;
+  }
+
+  .not-toxic{
+    background : #a8c256;
+  }
+  
+  .ribbon{
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow:hidden;
+    width:75px;
+    height:75px;
+    text-align: right;
+  }
+  .ribbon span {
+    font-size: 11px;
+    color: #fff; 
+    text-transform: uppercase; 
+    text-align: center;
+    font-weight: bold; line-height: 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg); /* Needed for Safari */
+    width: 100px; display: block;
+    background : #a8c256;
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 19px; right: -21px;
+    text-shadow: 1px 1px  black;
+ }
+
+ .ribbon span::before {
+  content: '';
+  position: absolute; 
+  left: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid #79A70A;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}
+.ribbon span::after {
+  content: '';
+  position: absolute; 
+  right: 0%; top: 100%;
+  z-index: -1;
+  border-right: 3px solid #79A70A;
+  border-left: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}
+
+.red span{background: #a22522;}
+.red span::before {border-left-color: #8F0808; border-top-color: #8F0808;}
+.red span::after {border-right-color: #8F0808; border-top-color: #8F0808;}
