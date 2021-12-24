@@ -14,10 +14,11 @@ body {
 }
 
 
+
 .wrapper{
   padding: 0 20px;
   max-width: 450px;
-  margin:150px auto;
+  margin:70px auto;
 }
 
 .wrapper .search-input{
@@ -57,16 +58,22 @@ body {
   max-height: 280px;
   overflow-y:auto;
   pointer-events: auto;
+  position:absolute;
+  width:100%;
+  background:white;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+  user-select: none;
+
 }
 
 .autocomplete-box li{
   list-style:none;
   padding: 8px 12px;
   width:100%;
-  border-radius: 3px;
   display: block;
   cursor:pointer;
 }
+
 
 
 .autocomplete-box li:hover{
@@ -87,8 +94,25 @@ body {
   background-color:#46b34b;
 }
 
+
+
 footer {
   margin-top: 30px;
   text-align: center;
 }
 
+.home-wrapper{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width:960px){
+  .wrapper{
+    padding: 0 20px;
+    max-width: 450px;
+    margin:40px auto;
+  
+  }
+}

@@ -12,14 +12,17 @@ const Navbar = () => {
         setMenuClicked(!menuClicked);
     }
 
-    const iconStyle = {color:'white'};
-
     return (
         <>
             <nav className="NavbarItems">
-                <h1 className="navbar-logo">TPI<RiPlantLine style={{marginLeft:'0.5rem',fontSize:'1.6rem'}}/></h1>
+                <Link to='/' >
+                    <h1 className="navbar-logo">
+                        TPI
+                        <RiPlantLine style={{marginLeft:'0.5rem',fontSize:'1.6rem'}}/>
+                    </h1>
+                </Link>
                 <div className="menu-icon" onClick={handleMenuClick}>
-                    {menuClicked? <FaTimes style={iconStyle}/> : <FaBars style={iconStyle}/>}
+                    {menuClicked? <FaTimes/> : <FaBars/>}
                 </div>
                 <ul className={menuClicked? 'nav-menu active' : 'nav-menu'}>
                     {MenuItems.map((item,index)=>{

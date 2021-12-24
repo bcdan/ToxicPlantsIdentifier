@@ -6,11 +6,17 @@
     font-size:1.2rem;
     background: #253526;
 }
+.NavbarItems a{
+    text-decoration: none;
+}
 .navbar-logo{
     color:#fff;
     justify-self: start;
     margin-left:20px;
     cursor:pointer;
+}
+.menu-icon{
+    color:white;
 }
 .nav-menu{
     display:grid;
