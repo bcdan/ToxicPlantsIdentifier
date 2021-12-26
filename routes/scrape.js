@@ -60,8 +60,8 @@ exports.fetchPlantDetails= async (url)=>{
     const additionalNames = $('div.pane-node-field-additional-common-names span.values').text();
     const scientificName = $('div.pane-node-field-scientific-name span.values').text().trim();
     const family = $('div.pane-node-field-family span.values').text().trim();
-    const toxicity = $('div.pane-node-field-toxicity span.values').text().replaceAll("Toxic to","").toLowerCase().trim();
-    const safe = $('div.pane-node-field-non-toxicity span.values').text().replaceAll("Non-Toxic to","").toLowerCase().trim();
+    const toxicity = $('div.pane-node-field-toxicity span.values').text().replace(/Toxic to/g,"").toLowerCase().trim();
+    const safe = $('div.pane-node-field-non-toxicity span.values').text().replace(/Non-Toxic to/g,"").toLowerCase().trim();
     const details = {
         img:image,
         additionalNames:additionalNames,
