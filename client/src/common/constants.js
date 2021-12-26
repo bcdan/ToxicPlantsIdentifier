@@ -1,1 +1,1 @@
-export const HOME_PLACEHOLDER_PLANT = 4;
+export const HOME_PLACEHOLDER_PLANT = 243;
