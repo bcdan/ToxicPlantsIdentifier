@@ -4,6 +4,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import usePlantsFetch from '../common/hooks/usePlantsFetch'
 import {setSearchBoxStatus} from '../features/search'
 import {useState,useRef,useEffect} from 'react'
+import {motion} from 'framer-motion'
 
 const SearchBox = () => {
     const plants = useSelector((state)=>state.fetchedPlants.plants);
@@ -34,7 +35,16 @@ const SearchBox = () => {
 
     return (
             <div className="wrapper">
-                <div className="search-input">
+                <motion.div
+                 className="search-input"
+                 initial={{ scale: 0 }}
+                 animate={{ rotate: 360, scale: 1 }}
+                 transition={{
+                   type: "spring",
+                   stiffness: 250,
+                   damping: 30
+                 }}
+                 >
                     <input type="text" placeholder="Search..." ref={inputRef} onChange={onSearch}/>
                     {
                     searchBoxOpen &&
@@ -43,7 +53,7 @@ const SearchBox = () => {
                     </div>
                     }       
                     <div className="icon"><FaSearch/></div>
-                </div>
+                </motion.div>
             </div>
 
     )

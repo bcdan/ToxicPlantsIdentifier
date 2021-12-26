@@ -7,6 +7,26 @@ import axios from "axios";
 import {motion} from 'framer-motion'
 
 
+const cardAnimationContainer = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  
+  const cardItemAnimation = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
 const PlantDetails = ({plantID}) => {
     const [plant,setPlant] = useState([]);
     const [loading,setLoading] = useState(true);
@@ -21,7 +41,6 @@ const PlantDetails = ({plantID}) => {
                     (err) => {console.log(err)});
             setPlant(response.data);
             setLoading(false);
-            console.log(response.data);
           }
           getPlantDetails();
     },[plantID]);
@@ -31,13 +50,14 @@ const PlantDetails = ({plantID}) => {
     const Details = ()=>{
         return (
             <motion.div ref={constraintsRef}div className="plant-card" >
-                {loading ? <Skeleton style={{
-                                        borderTopRightRadius:'15px',
-                                        borderTopLeftRadius:'15px',
-                                        height:'100%',
-                                        paddingTop:'5px'
-                                    }}/> 
-                                    :
+                {loading ? 
+                <Skeleton style={{
+                    borderTopRightRadius:'15px',
+                    borderTopLeftRadius:'15px',
+                    height:'100%',
+                    paddingTop:'5px'
+                }}/> 
+                :
                 <div className="card-img" style={{
                     background:`url(${plant.img})`  ,
                     backgroundSize:'cover',
@@ -60,20 +80,24 @@ const PlantDetails = ({plantID}) => {
                     </motion.div >
                 </div>
                 }
-                <div className="card-text">
-                    <h2>{loading? <Skeleton /> : plant.Name }</h2>
+                <motion.div
+                 className="card-text"
+                 variants={cardAnimationContainer}
+                 initial="hidden"
+                 animate="visible"
+                >
+                <h2>{loading? <Skeleton /> : plant.Name }</h2>
                 {loading ? <Skeleton count={6} style={{marginTop:'5px'}}/> :
                     <>
-                    <h5>Additional Names:</h5> <p>{plant.additionalNames || "None" }</p>
-                    <h5>Scientific Name:</h5> <p>{plant.scienceName }</p>
-                    <h5>Family:</h5><p>{plant.family || "Unknown"}</p>
-                    {plant.toxicity? <><h5>Toxic to:</h5><p>{plant.toxicity}</p></> : null}
-                    {plant.safe? <><h5>Safe for:</h5><p>{plant.safe}</p></> : null}
+                    <motion.h5 variants={cardItemAnimation}>Additional Names:</motion.h5> <motion.p variants={cardItemAnimation}>{plant.additionalNames || "None" }</motion.p>
+                    <motion.h5 variants={cardItemAnimation}>Scientific Name:</motion.h5> <motion.p variants={cardItemAnimation}>{plant.scienceName }</motion.p>
+                    <motion.h5 variants={cardItemAnimation}>Family:</motion.h5><motion.p variants={cardItemAnimation}>{plant.family || "Unknown"}</motion.p>
+                    {plant.toxicity? <><motion.h5 variants={cardItemAnimation}>Toxic to:</motion.h5><motion.p variants={cardItemAnimation}>{plant.toxicity}</motion.p></> : null}
+                    {plant.safe? <><motion.h5 variants={cardItemAnimation}>Safe for:</motion.h5><motion.p variants={cardItemAnimation}>{plant.safe}</motion.p></> : null}
                     </>
                 }
-                </div>
-                <div className="card-bottom">
-                </div>
+                </motion.div>
+                <div className="card-bottom"/>
             </motion.div>
         )
     }

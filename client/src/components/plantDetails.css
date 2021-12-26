@@ -2,7 +2,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 300px;
-    grid-template-rows: 210px 250px 35px;
+    grid-template-rows: 210px 250px 15px;
     grid-template-areas: "image" "text" "bottom";
     border-radius: 18px;
     background: white;
@@ -26,13 +26,13 @@
   .card-text h2 {
     margin-top:2px;
     font-size:25px;
-    color:rgb(159, 100, 53);
+    color:rgb(24, 57, 26);
   }
   .card-bottom {
     grid-area: bottom; 
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    background:  rgb(159, 100, 53);
+    background:  rgb(150, 179, 141);
 
   }
 

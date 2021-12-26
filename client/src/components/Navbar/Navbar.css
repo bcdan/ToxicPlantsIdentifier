@@ -6,6 +6,7 @@
     align-items:center;
     font-size:1.2rem;
     background: var(--main-bg-color);
+    color:#e84c3d;
     
 }
 .NavbarItems a{
