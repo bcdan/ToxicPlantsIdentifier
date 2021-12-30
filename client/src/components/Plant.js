@@ -11,7 +11,7 @@ const Plant = ({plant}) => {
       return (
         <div className="plant">
                 <li onClick={handleClickedPlant}>
-                {plant.Name}
+                {plant.name}
                 </li>
         </div>
 

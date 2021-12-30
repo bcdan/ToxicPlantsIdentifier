@@ -24,9 +24,15 @@
     font-weight: 300;
   }
   .card-text h2 {
-    margin-top:2px;
+    margin-top:4px;
     font-size:25px;
     color:rgb(24, 57, 26);
+  }
+  .card-text p,
+  .card-text h5{
+    text-align: left;
+    margin-left: 25%;
+    margin-right: 10px;
   }
   .card-bottom {
     grid-area: bottom; 
@@ -57,24 +63,42 @@
 .safe{
   background : #a8c256;
 }
+
+.toxicity-indicator{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  filter:drop-shadow(1px 1px #1c1c1c);
+  color: #fff; 
+}
+
+.toxicity-indicator span{
+  padding:2px;
+}
 .status-badge {
-  filter:drop-shadow(black 1px 1px 2px);
   position: relative;
-  width: 65px;
-  height: 65px;
+  width: 100%;
+  height: 30px;
   border: none;
-  border-radius: 50%;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
   background-size:cover;
   background-repeat: no-repeat;
-  cursor: pointer;
   text-align: center;
   display:flex;
   flex-direction: column;
   justify-content: center;
-  -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-  -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-  -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  -webkit-animation: pulse 1.25s 1 cubic-bezier(0.66, 0, 0, 1);
+  -moz-animation: pulse 1.25s 1 cubic-bezier(0.66, 0, 0, 1);
+  -ms-animation: pulse 1.25s 1 cubic-bezier(0.66, 0, 0, 1);
+  animation: pulse 1.25s 1 cubic-bezier(0.66, 0, 0, 1);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none; 
+                        
 }
 
 
@@ -87,13 +111,3 @@
 @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 
-.toxicity-indicator{
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  filter:drop-shadow(1px 1px 1px #1c1c1c);
-  color: #fff; 
-
-
-}

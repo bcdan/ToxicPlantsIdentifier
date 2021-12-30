@@ -90,7 +90,7 @@ body {
 
 
 
-.autocomplete-box li:hover,
+.autocomplete-box li:hover
 {
   background:var(--hover-color);
 }

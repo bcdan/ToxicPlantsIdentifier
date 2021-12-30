@@ -17,6 +17,7 @@
     "cheerio": "^1.0.0-rc.10",
     "concurrently": "^6.2.1",
     "express": "^4.17.1",
+    "image-downloader": "^4.0.3",
     "node-fetch": "^2.6.1",
     "path": "^0.12.7"
   },
