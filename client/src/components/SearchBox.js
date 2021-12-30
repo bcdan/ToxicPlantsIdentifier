@@ -1,5 +1,5 @@
 import Plants from './Plants'
-import {FaSearch } from 'react-icons/fa'
+import {FaSearch} from 'react-icons/fa'
 import {useSelector,useDispatch} from 'react-redux'
 import usePlantsFetch from '../common/hooks/usePlantsFetch'
 import {setSearchBoxStatus} from '../features/search'
@@ -20,7 +20,7 @@ const SearchBox = () => {
         let matches = plants.filter(plant=>{
             const input = e.target.value.replace(specialPatten, '\\$&');
             const regex = new RegExp(`^${input}|${input}$`,'gi'); 
-            return plant.Name.match(regex);
+            return plant.name.match(regex);
         });
         if(e.target.value.length === 0)
           matches=[];
@@ -28,8 +28,9 @@ const SearchBox = () => {
       }
 
     useEffect(()=>{
-        if(!searchBoxOpen)
-            inputRef.current.value="";
+        if(!searchBoxOpen){
+          inputRef.current.value="";
+        }
 
     },[searchBoxOpen])
 
