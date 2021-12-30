@@ -1,9 +1,11 @@
 const cheerio = require('cheerio');
-const fetch = require('node-fetch');
+const axios = require('axios');
 const fs = require('fs');
 const download = require('image-downloader')
+const {mapAllSettled} = require('./fetchLimiter.js');
 const PATH = './db.json';
 const PLANTS_URL = 'https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list';
+const MAX_CONCURRENT_REQUESTS = 15;
 let plantsDB = [];
 let currentNumOfPlants = 0;
 
@@ -23,9 +25,8 @@ let currentNumOfPlants = 0;
 
 
 
-
-
 async function fetchFromSite(){
+    console.log("Scraping data now...");
     const $ = await initScrapeSelector(PLANTS_URL);
     const scrapedPlantsList = $('div.view-header,div.view-content');
     let isToxic = true;
@@ -37,18 +38,27 @@ async function fetchFromSite(){
         if(err)
             console.error(err);
     });
-    console.log("done");
+    console.log("Finished scraping all data");
 
 
 }
 
 async function addAllPlantsDetails(){
-    for(let i=0;i<currentNumOfPlants;i++){
-        console.log(`Loading...${((i+1)/currentNumOfPlants*100).toFixed(2)} Percent`);
-        const details = await fetchPlantDetails(plantsDB[i].link,i);
-        plantsDB[i] = {...plantsDB[i],...details};
-    }
+    const data = await mapAllSettled(plantsDB,async(plant)=>{
+        try {
+            const extraDetails = await fetchPlantDetails(plant.link,plant.ID);
+            return {
+                ...plant,
+                ...extraDetails
+            }
+                ;
+        } catch (error) {
+            return error.message;
+        }
+    },MAX_CONCURRENT_REQUESTS);
+    plantsDB=data.map(item=>item.value);
 }
+
 
 function getAllPlantsFromList($,scrapedPlantsList,plantsListIndex,isToxic){
     $(scrapedPlantsList[plantsListIndex]).find('.field-content').each((j,elem)=>{
@@ -71,14 +81,14 @@ function isNonToxicPlant($,scrapedElement){
 }
 
 async function fetchPlantDetails(url,id){
-    const $ = await initScrapeSelector(`https://www.aspca.org${url}`);
+     const $ = await initScrapeSelector(`https://www.aspca.org${url}`);
     const image = $('div.pane-node-field-image').find('img').attr('data-echo');
     const imageWithExtension = image.split("?")[0]; 
     const filePath = `./public/plants-images/plant_${id}.jpg`; 
     const options = {
         url:imageWithExtension,
         dest:filePath,
-        timeout: 60000
+        timeout: 300000
     }
     if(!fs.existsSync(filePath)){
         download.image(options).then(({filename})=>{console.log("Saved to",filename)}).catch((err)=>{console.error(err)});
@@ -89,7 +99,7 @@ async function fetchPlantDetails(url,id){
     const toxicity = $('div.pane-node-field-toxicity span.values').text().replace(/Toxic to/g,"").toLowerCase().trim();
     const safe = $('div.pane-node-field-non-toxicity span.values').text().replace(/Non-Toxic to/g,"").toLowerCase().trim();
     const details = {
-        img:image,
+        img:imageWithExtension,
         additionalNames:additionalNames,
         scienceName : scientificName,
         family:family,
@@ -101,8 +111,8 @@ async function fetchPlantDetails(url,id){
 
 //Fetches URL and returns '$' as a selector 
 async function initScrapeSelector(url){
-    const response = await fetch(url);
-    const body = await response.text();
+    const response = await axios.get(url).catch(error=>console.log(error));
+    const body = await response.data;
     const $ = cheerio.load(body); // selector
     return $;
 }

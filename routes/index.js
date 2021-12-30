@@ -2,12 +2,9 @@ const express = require('express');
 const { getPlantsList  } = require('./scrape');
 const router = express.Router();
 let DB;
-let serverBusy = false;
 
 async function initDB(){
-    serverBusy = true;
     const data = await getPlantsList();
-    serverBusy = false;
     return data;
 }
 initDB()
@@ -20,9 +17,6 @@ router.get('/plants',async (req,res)=>{
 
 router.get('/plants/:id',async (req,res)=>{
     const _id = req.params.id;
-    console.log(serverBusy);
-    if(serverBusy)
-        res.status(429).json({message:"Server is loading data"});
     if(DB == null)
         return res.status(500).json({message:"Server database error"});
     if(_id>=DB.length || _id<0 )
