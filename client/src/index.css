@@ -4,10 +4,6 @@
   --hover-color : #3d583f;
 }
 
-html{
-
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -90,7 +86,7 @@ body {
 
 
 
-.autocomplete-box li:hover,
+.autocomplete-box li:hover
 {
   background:var(--hover-color);
 }

@@ -1,4 +1,4 @@
-import {useState,useEffect,useRef} from "react"
+import {useState,useEffect} from "react"
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaSkull ,FaShieldAlt} from 'react-icons/fa';
@@ -30,7 +30,6 @@ const cardAnimationContainer = {
 const PlantDetails = ({plantID}) => {
     const [plant,setPlant] = useState([]);
     const [loading,setLoading] = useState(true);
-    const constraintsRef = useRef(null)
 
     useEffect(() => {
         const getPlantDetails = async()=>{
@@ -49,35 +48,35 @@ const PlantDetails = ({plantID}) => {
 
     const Details = ()=>{
         return (
-            <motion.div ref={constraintsRef}div className="plant-card" >
+            <div className="plant-card" >
                 {loading ? 
                 <Skeleton style={{
-                    borderTopRightRadius:'15px',
-                    borderTopLeftRadius:'15px',
+                    borderTopRightRadius:'18px',
+                    borderTopLeftRadius:'18px',
                     height:'100%',
                     paddingTop:'5px'
                 }}/> 
                 :
                 <div className="card-img" style={{
-                    background:`url(${plant.img})`  ,
+                    background:`url('images/plant_${plantID}.jpg')`  ,
                     backgroundSize:'cover',
-                    borderTopRightRadius:'15px',
-                    borderTopLeftRadius:'15px',
+                    borderTopRightRadius:'18px',
+                    borderTopLeftRadius:'18px',
                     gridArea:'image'
                     }} >
-                    <motion.div drag dragConstraints={constraintsRef} className={plant.Toxic? "status-badge badge-toxic" : "status-badge badge-safe"}>
-                    {plant.Toxic ? 
+                    <div className={plant.toxic? "status-badge badge-toxic" : "status-badge badge-safe"}>
+                    {plant.toxic ? 
                         <div className="toxicity-indicator">
-                            Toxic 
                             <FaSkull/>
+                            <span>Toxic</span> 
                         </div>
                                  :
                         <div className="toxicity-indicator">
-                            Safe
                             <FaShieldAlt/>
+                            <span>Safe</span>
                         </div>
                     }
-                    </motion.div >
+                    </div >
                 </div>
                 }
                 <motion.div
@@ -86,8 +85,8 @@ const PlantDetails = ({plantID}) => {
                  initial="hidden"
                  animate="visible"
                 >
-                <h2>{loading? <Skeleton /> : plant.Name }</h2>
-                {loading ? <Skeleton count={6} style={{marginTop:'5px'}}/> :
+                <h2>{loading? <Skeleton style={{width:'80%'}} /> : plant.name }</h2>
+                {loading ? <Skeleton count={7} style={{width:'60%',marginTop:'5px'}}/> :
                     <>
                     <motion.h5 variants={cardItemAnimation}>Additional Names:</motion.h5> <motion.p variants={cardItemAnimation}>{plant.additionalNames || "None" }</motion.p>
                     <motion.h5 variants={cardItemAnimation}>Scientific Name:</motion.h5> <motion.p variants={cardItemAnimation}>{plant.scienceName }</motion.p>
@@ -98,7 +97,7 @@ const PlantDetails = ({plantID}) => {
                 }
                 </motion.div>
                 <div className="card-bottom"/>
-            </motion.div>
+            </div>
         )
     }
     return (<Details/> )
