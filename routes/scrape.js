@@ -93,7 +93,7 @@ async function fetchPlantDetails(url,id){
     if(!fs.existsSync(filePath)){
         download.image(options).then(({filename})=>{console.log("Saved to",filename)}).catch((err)=>{console.error(err)});
     }
-    const additionalNames = $('div.pane-node-field-additional-common-names span.values').text();
+    const additionalNames = $('div.pane-node-field-additional-common-names span.values').text().trim().split(',');
     const scientificName = $('div.pane-node-field-scientific-name span.values').text().trim();
     const family = $('div.pane-node-field-family span.values').text().trim();
     const toxicity = $('div.pane-node-field-toxicity span.values').text().replace(/Toxic to/g,"").toLowerCase().trim();
