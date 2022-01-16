@@ -1,7 +1,9 @@
-import {useDispatch} from 'react-redux'
-import {setSearchPlantID,setSearchBoxStatus} from '../features/search'
+import {useDispatch,useSelector} from 'react-redux'
+import Highlighter from "react-highlight-words";
+import {setSearchBoxStatus,setSearchPlantID} from '../features/search'
 
 const Plant = ({plant}) => {
+  const searchTerm = useSelector((state)=>state.searchBox.searchTerm);
   const dispatch = useDispatch();
 
   const handleClickedPlant=()=>{
@@ -11,7 +13,12 @@ const Plant = ({plant}) => {
       return (
         <div className="plant">
                 <li onClick={handleClickedPlant}>
-                {plant.name}
+                  <Highlighter
+                    highlightClassName="plant-highlight"
+                    searchWords={[searchTerm]}
+                    autoEscape={true}
+                    textToHighlight={plant.name}
+                  />
                 </li>
         </div>
 
