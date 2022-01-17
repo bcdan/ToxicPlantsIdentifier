@@ -100,7 +100,7 @@ async function fetchPlantDetails(url,id){
     const safe = $('div.pane-node-field-non-toxicity span.values').text().replace(/Non-Toxic to/g,"").toLowerCase().trim();
     const details = {
         img:imageWithExtension,
-        additionalNames:additionalNames,
+        additionalNames:(additionalNames?.length === 1 && additionalNames[0] === "") ? "None" : additionalNames,
         scienceName : scientificName,
         family:family,
         toxicity:toxicity,
