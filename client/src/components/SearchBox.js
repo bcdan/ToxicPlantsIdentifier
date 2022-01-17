@@ -10,6 +10,7 @@ const SearchBox = () => {
     const plants = useSelector((state)=>state.fetchedPlants.plants);
     const searchBoxOpen = useSelector((state)=>state.searchBox.searchResultsStatus);
     const [filteredPlants,setFilteredPlants] = useState([]);
+    const [noFoundMatches,setNoFoundMatches] = useState(false);
     const inputRef = useRef();
     const dispatch = useDispatch();
     usePlantsFetch();
@@ -25,11 +26,9 @@ const SearchBox = () => {
         let matches = plants.filter(plant=>{
             const regex = new RegExp(`^${input}`,'gi'); 
             return plant.name.match(regex) || 
-              plant?.additionalNames.some(name=>name.match(regex)) ||
               plant?.scienceName.match(regex);
         });
-        if(e.target.value.length === 0)
-          matches=[];
+        matches.length === 0 ? setNoFoundMatches(true) : setNoFoundMatches(false);
         dispatch(setSearchTerm(input))
         setFilteredPlants(matches);
       }
@@ -43,10 +42,13 @@ const SearchBox = () => {
     const clearSearchBox = ()=>{
       dispatch(setSearchTerm(""));
       dispatch(setSearchBoxStatus(false));
+      setFilteredPlants([]);
+      setNoFoundMatches(false);
     }
 
     return (
             <div className="wrapper">
+               <div className="not-found">{noFoundMatches? "No matches found" : ""}</div>
                 <motion.div
                  className="search-input"
                  initial={{ scale: 0 }}
@@ -65,7 +67,7 @@ const SearchBox = () => {
                     </div>
                     }       
                     <div className="icon">
-                      {searchBoxOpen? <FaTimes onClick={()=>clearSearchBox()}/>:<FaSearch/>}
+                      {searchBoxOpen? <FaTimes onClick={()=>clearSearchBox()} style={{cursor:'pointer'}}/>:<FaSearch />}
                       </div>
                 </motion.div>
             </div>

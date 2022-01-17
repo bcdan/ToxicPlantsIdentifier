@@ -5,27 +5,9 @@ import { FaSkull ,FaShieldAlt} from 'react-icons/fa';
 import './plantDetails.css';
 import axios from "axios";
 import {motion} from 'framer-motion'
+import {variantsContainer as cardAnimationContainer , variantsItem as cardItemAnimation} from '../common/animationsConfig'
 
 
-const cardAnimationContainer = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  };
-  
-  const cardItemAnimation = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
 
 const PlantDetails = ({plantID}) => {
     const [plant,setPlant] = useState([]);
@@ -88,7 +70,7 @@ const PlantDetails = ({plantID}) => {
                 <h2>{loading? <Skeleton style={{width:'80%'}} /> : plant.name }</h2>
                 {loading ? <Skeleton count={7} style={{width:'60%',marginTop:'5px'}}/> :
                     <>
-                    <motion.h5 variants={cardItemAnimation}>Additional Names:</motion.h5> <motion.p variants={cardItemAnimation}>{plant.additionalNames || "None" }</motion.p>
+                    <motion.h5 variants={cardItemAnimation}>Additional Names:</motion.h5> <motion.p variants={cardItemAnimation}>{plant.additionalNames?.length === 0 ? "None" : plant.additionalNames}</motion.p>
                     <motion.h5 variants={cardItemAnimation}>Scientific Name:</motion.h5> <motion.p variants={cardItemAnimation}>{plant.scienceName }</motion.p>
                     <motion.h5 variants={cardItemAnimation}>Family:</motion.h5><motion.p variants={cardItemAnimation}>{plant.family || "Unknown"}</motion.p>
                     {plant.toxicity? <><motion.h5 variants={cardItemAnimation}>Toxic to:</motion.h5><motion.p variants={cardItemAnimation}>{plant.toxicity}</motion.p></> : null}
