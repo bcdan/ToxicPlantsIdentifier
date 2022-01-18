@@ -25,9 +25,10 @@ body {
 
 
 .wrapper{
-  padding: 0 20px;
   max-width: 450px;
-  margin:40px auto;
+  padding: 0 20px;
+  margin-top:5px;
+  margin-bottom:15px;
   z-index: 2;
 }
 
@@ -169,9 +170,7 @@ footer {
 
 @media screen and (max-width:960px){
   .wrapper{
-    padding: 0 20px;
     max-width: 450px;
-    margin:20px auto;
-    z-index: 2;
+    margin-bottom:15px;
   }
 }
